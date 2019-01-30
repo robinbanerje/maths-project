@@ -1,0 +1,55 @@
+
+//program for simpson's 1/3 rule
+
+#include<stdio.h>
+#include<conio.h>
+
+float f(float x)                 //to return below mentioned function's values for all elements
+{
+    return(0.2+25*x+-200*x*x+675*x*x*x-900*x*x*x*x+400*x*x*x*x*x);
+}
+
+void main()
+{
+    int n;                              //no. of segments
+    float x0,xn,h,x[100],y[100],so,se,I;  /*initial element(x0),final element(xn),width of the strip(h),
+                                     elements(x), function values of elements(y), sum of odd terms(so),   
+                                            sum of even terms(se), integral value(I)*/
+    printf("\nEnter values of initial element, final element, no. of segments:\n");
+    scanf("%f%f%d",&x0,&xn,&n);             //read above mentioned values
+    
+    if(n%2==1)
+    {
+        n=n+1;                  //since simpson's 1/3 rule is only for even no. of segments
+    }
+    h=(xn-x0)/n;                //assign 'width of the strip' value
+    
+    printf("\n Refined value of no. of segments & width of strip are: %d %f\n",n,h); //modified values iff needed
+    printf("\n function's values for elements: \n");
+    for(int i=0; i<=n; i++)         //to show f(x) values
+    {
+        x[i]=x0+i*h;
+        y[i]=f(x[i]);
+        printf("\n %f",y[i]);
+    }
+    so=0;
+    se=0;
+    for(int i=1; i<n; i++)
+    {
+        if(i%2==1)
+        {
+            so=so+y[i];             //calculate sum of all odd elements
+        }
+        else
+        {
+            se=se+y[i];             //calculate sum of all even elements
+        }
+ 
+    }
+    
+    I=(h/3)*(y[0]+y[n]+4*so+2*se);          //calculate integral value over the domain
+    
+    printf("\n Final integration is %f",I);  //show integration output
+ 
+    getch();
+}
